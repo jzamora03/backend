@@ -18,7 +18,7 @@ Antes de comenzar, asegúrate de tener instalados:
 📌 **Clona el repositorio y accede a la carpeta:**  
 ```bash
 git clone https://github.com/jzamora03/backend
-cd PROYECTO
+cd backend
 ```
 📌 **Instala las dependencias con Composer**  
 ```bash
