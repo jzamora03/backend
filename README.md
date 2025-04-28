@@ -7,34 +7,62 @@ Este proyecto permite la gestión de tareas con un sistema de autenticación, in
 
 ## 📌 1. Requisitos Previos  
 Antes de comenzar, asegúrate de tener instalados:  
-- [Angular14+](https://angular.dev/installation)
-  
+- [PHP 8.0+](https://www.php.net/downloads)  
+- [Composer](https://getcomposer.org/download/)  
+- [Laravel 10+](https://laravel.com/docs/10.x/installation)  
+- [SQLite](https://www.sqlite.org/download.html?)  
+
 ---
 
 ## ⚙️ 2. Instalación del Proyecto  
 📌 **Clona el repositorio y accede a la carpeta:**  
 ```bash
-git clone https://github.com/jzamora03/frontend
-cd frontend
+git clone https://github.com/jzamora03/backend
+cd backend
 ```
-📌 **Instala las dependencias con npm**  
+📌 **Instala las dependencias con Composer**  
 ```bash
-npm install
+composer install
 ```
 
-## ⚙️ 3. Iniciar el proyecto
-📌 **Levantar el servidor del front con:**  
+## ⚙️ 3. Configuración
+📌 **Crea el archivo .env y configura la conexión a la base de datos, en dado caso que no lo tengas**  
 ```bash
-npm serve
+cp .env.example .env
+```
+📌 **Modifica .env con tus credenciales de base de datos**  
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nombre_de_tu_base
+DB_USERNAME=root
+DB_PASSWORD=tu_contraseña
+```
+📌 **Generarla clave de aplicación, si este lo requiere**  
+```bash
+php artisan key:generate
 ```
 
-📌 **El frontend esta corriendo en:**  
+## ⚙️ 4. Configuración de base de datos
+📌 **Ejecuta las migraciones para crear las tablas**  
 ```bash
-http://localhost:4200/
+php artisan migrate
+```
+📌 **Si deseas datos de prueba, corre los seeders**  
+```bash
+php artisan db:seed
+php artisan migrate:refresh --seed
 ```
 
-## ⚙️ Solucion a posibles errores errores
-📌 **Solucion**  
+## ⚙️ 5. Levantar el Servidor Local
+📌 **Ejecuta Laravel en un servidor local**  
 ```bash
-npm cache clean --force o reinstala con npm install
+php artisan serve
 ```
+📌 **Accede a la aplicación en tu navegador**  
+```bash
+http://127.0.0.1:8000
+```
+
+
