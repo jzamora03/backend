@@ -5,22 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 
 class TaskController extends Controller
 {
-    //
-    // public function index()
-    // {
-    //     $user = Auth::user(); 
-    //     return response()->json($user->tasks);
-    // }
 
     public function index()
     {
         return response()->json(Task::with('user')->get()); 
     }
+
+   
+
 
 
     public function store(Request $request)
@@ -119,17 +117,48 @@ class TaskController extends Controller
     } 
     
     public function tasksCompletedByWeek()
-{
-    $lastMonth = now()->subMonth();
+    {
+        $lastMonth = now()->subMonth();
 
-    $tasksByWeek = \App\Models\Task::where('status', 'completada')
-        ->whereDate('updated_at', '>=', $lastMonth) 
-        ->selectRaw("strftime('%Y-%W', updated_at) as week, COUNT(*) as count") 
-        ->groupBy('week')
-        ->orderBy('week')
-        ->get();
+        $tasksByWeek = \App\Models\Task::where('status', 'completada')
+            ->whereDate('updated_at', '>=', $lastMonth) 
+            ->selectRaw("strftime('%Y-%W', updated_at) as week, COUNT(*) as count") 
+            ->groupBy('week')
+            ->orderBy('week')
+            ->get();
 
-    return response()->json($tasksByWeek);
-}
+        return response()->json($tasksByWeek);
+    }
+
+    public function getAllUsers()
+    {   
+        return response()->json(User::select('id', 'name')->get());
+    }
+
+    public function assignTask(Request $request, $id)
+    {
+        $task = Task::findOrFail($id);
+        $task->user_id = $request->user_id;
+        $task->save();
+
+        return response()->json(['message' => 'Tarea asignada correctamente', 'task' => $task]);
+    }
+
+    public function assignUser(Request $request, $taskId)
+    {
+        $task = Task::findOrFail($taskId);
+        $task->user_assigned = $request->user_assigned;
+        $task->save();
+    
+        return response()->json(['message' => 'Usuario asignado correctamente', 'task' => $task]);
+    }
+    
+    public function getTasks()
+    {
+        $tasks = Task::with('assignedUser')->get();
+
+        return response()->json($tasks);
+    }
+
 
 }

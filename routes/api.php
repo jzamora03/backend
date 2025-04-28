@@ -16,5 +16,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/tasks/Allindicators', [TaskController::class, 'Allindicators']);
     Route::get('/tasks/tasksCompletedByWeek', [TaskController::class, 'tasksCompletedByWeek']);
     Route::get('/tasks/{id}', [TaskController::class, 'show']);
+    Route::get('/getAllUsers', [TaskController::class, 'getAllUsers']);
+    Route::put('/tasks/assign/{id}', [TaskController::class, 'assignTask']);
+    Route::post('/tasks/{taskId}/assign-user', [TaskController::class, 'assignUser']);
 });
 
