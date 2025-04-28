@@ -17,7 +17,7 @@ Antes de comenzar, asegúrate de tener instalados:
 ## ⚙️ 2. Instalación del Proyecto  
 📌 **Clona el repositorio y accede a la carpeta:**  
 ```bash
-git clone https://github.com/jzamora03/app-premios
+git clone https://github.com/jzamora03/backend
 cd PROYECTO
 ```
 📌 **Instala las dependencias con Composer**  
